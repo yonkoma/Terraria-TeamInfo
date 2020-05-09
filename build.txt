@@ -1,0 +1,3 @@
+displayName = TeamInfo
+author = Yonkoma
+version = 0.1
