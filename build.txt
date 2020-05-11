@@ -1,3 +1,4 @@
-displayName = TeamInfo
+displayName = Team Info
 author = Yonkoma
-version = 0.1
+version = 0.2
+includeSouce = true
