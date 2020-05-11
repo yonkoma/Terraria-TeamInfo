@@ -46,14 +46,32 @@ namespace TeamInfo.UI
 			int height = dimensions.Height - TextHeight;
 			int healthLeft = x + 2;
 			int healthRight = x + width - 2;
-			int steps = (int)((healthRight - healthLeft) * lifePercent);
 
-			spriteBatch.Draw(Main.magicPixel, new Rectangle(x, y, width, height), Color.Lerp(Color.Black, teamColor, 0.3f));
-			Color healthColorStart = Color.Lerp(Color.Black, teamColor, 0.7f);
-			for (int i = 0; i < steps; i += 1)
+			spriteBatch.Draw(Main.magicPixel, new Rectangle(x + 1, y, width - 2, height), Color.Lerp(Color.Black, teamColor, 0.6f));
+			spriteBatch.Draw(Main.magicPixel, new Rectangle(x, y + 1, width, height - 2), Color.Lerp(Color.Black, teamColor, 0.6f));
+			Color healthColorFullLeft = Color.Lerp(Color.White, teamColor, 1f);
+			Color healthColorFullRight = Color.Lerp(Color.White, teamColor, 0.7f);
+			Color healthColorEmptyLeft = Color.Lerp(Color.Black, teamColor, 0.2f);
+			Color healthColorEmptyRight = Color.Lerp(Color.Black, teamColor, 0.3f);
+			int innerWidth = healthRight - healthLeft;
+			for (int i = 0; i < innerWidth; i += 1)
 			{
-				float percent = (float)i / (healthRight - healthLeft);
-				spriteBatch.Draw(Main.magicPixel, new Rectangle(healthLeft + i, y + 2, 1, height - 4), Color.Lerp(healthColorStart, teamColor, percent));
+				float percent = (float)(i + 1) / innerWidth;
+				Color color;
+				if(percent <= lifePercent)
+				{
+					color = Color.Lerp(healthColorFullLeft, healthColorFullRight, percent);
+				} else
+				{
+					color = Color.Lerp(healthColorEmptyLeft, healthColorEmptyRight, percent);
+				}
+				int roundEdgeAdjust = 0;
+				if(i == 0 || i == innerWidth - 1)
+				{
+					roundEdgeAdjust = 1;
+				}
+				Rectangle healthColumn = new Rectangle(healthLeft + i, y + 2 + roundEdgeAdjust, 1, height - 4 - 2 * roundEdgeAdjust);
+				spriteBatch.Draw(Main.magicPixel, healthColumn, color);
 			}
 			base.DrawSelf(spriteBatch);
 		}
