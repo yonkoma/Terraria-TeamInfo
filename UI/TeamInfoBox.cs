@@ -2,9 +2,7 @@
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
-using static Terraria.ModLoader.ModContent;
 
 namespace TeamInfo.UI
 {
@@ -13,6 +11,8 @@ namespace TeamInfo.UI
 		public const int HealthBarWidth = 160;
 		public const int HealthBarHeight = 40;
 		public const int HealthBarSpacing = 10;
+
+		public static bool Visible = true;
 
 		private UIElement area;
 		private Player[] teamMembers = new Player[0];
@@ -35,7 +35,7 @@ namespace TeamInfo.UI
 		public override void Update(GameTime gameTime)
 		{
 			Player player = Main.LocalPlayer;
-			if(player.team == 0)
+			if(player.team == 0 || !TeamInfoBox.Visible)
 			{
 				teamMembers = new Player[0];
 				teamMemberIds = new List<int>();
@@ -45,7 +45,7 @@ namespace TeamInfo.UI
 				List<int> newTeamMemberIds = new List<int>();
 				for(int i = 0; i < Main.player.Length; i++)
 				{
-					if(Main.player[i].team == player.team)
+					if(Main.player[i].team == player.team && Main.player[i].active)
 					{
 						newTeamMemberIds.Add(i);
 					}
@@ -61,7 +61,7 @@ namespace TeamInfo.UI
 					area.Height.Set(teamCount * HealthBarHeight + (teamCount - 1) * HealthBarSpacing, 0f);
 					for(int i = 0; i < teamCount; i++)
 					{
-						teamMembers[i] = Main.player[i];
+						teamMembers[i] = Main.player[teamMemberIds[i]];
 						teamHealthBars[i] = new TeamHealthBar(teamMembers[i]);
 						teamHealthBars[i].Width.Set(HealthBarWidth, 0f);
 						teamHealthBars[i].Height.Set(HealthBarHeight, 0f);

@@ -9,7 +9,7 @@ namespace TeamInfo.UI
 	internal class TeamHealthBar : UIElement
 	{
 		private const int TextHeight = 15;
-		
+
 		internal Player player;
 		internal UIText nameText;
 		internal UIText healthText;
