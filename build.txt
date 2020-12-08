@@ -1,5 +1,8 @@
 displayName = Team Info
 author = Yonkoma
 version = 0.3
+hideCode = false
+hideResources = false
 includeSouce = true
+homepage = https://github.com/yonkoma/Terraria-TeamInfo
 buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
