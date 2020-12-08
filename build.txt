@@ -2,3 +2,4 @@ displayName = Team Info
 author = Yonkoma
 version = 0.3
 includeSouce = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vs\*
